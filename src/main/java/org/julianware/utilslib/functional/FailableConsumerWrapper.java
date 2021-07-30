@@ -12,9 +12,9 @@ final class FailableConsumerWrapper<T, U extends Throwable>
 extends FailableActionWrapper<U>
 implements Consumer<T> {
 
-    private TriableConsumer<T> consumer;
+    private TriableConsumer<T, U> consumer;
 
-    public FailableConsumerWrapper<T, U> wrap(final TriableConsumer<T> consumer) {
+    public FailableConsumerWrapper<T, U> wrap(final TriableConsumer<T, U> consumer) {
         Objects.requireNonNull(consumer);
         this.consumer = consumer;
         return this;

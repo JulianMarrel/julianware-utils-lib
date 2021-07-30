@@ -55,19 +55,19 @@ public class ConvenientOptional<OptionalObjectType> {
         return this.optionalT.isEmpty();
     }
 
-    public <OriginalExceptionType extends Throwable> void ifPresent(final TriableConsumer<OptionalObjectType> action) throws OriginalExceptionType {
+    public <OriginalExceptionType extends Throwable> void ifPresent(final TriableConsumer<OptionalObjectType, OriginalExceptionType> action) throws OriginalExceptionType {
         final FailableConsumerWrapper<OptionalObjectType, OriginalExceptionType> failableConsumerWrapper = new FailableConsumerWrapper<>();
         this.optionalT.ifPresent(failableConsumerWrapper.wrap(action));
         failableConsumerWrapper.rethrowIfFailed(exception -> exception);
     }
 
-    public <OriginalExceptionType extends Throwable, RethrownExceptionType extends Throwable> void ifPresent(final TriableConsumer<OptionalObjectType> action, final Function<OriginalExceptionType, RethrownExceptionType> exceptionSupplier) throws RethrownExceptionType {
+    public <OriginalExceptionType extends Throwable, RethrownExceptionType extends Throwable> void ifPresent(final TriableConsumer<OptionalObjectType, OriginalExceptionType> action, final Function<OriginalExceptionType, RethrownExceptionType> exceptionSupplier) throws RethrownExceptionType {
         final FailableConsumerWrapper<OptionalObjectType, OriginalExceptionType> failableConsumerWrapper = new FailableConsumerWrapper<>();
         this.optionalT.ifPresent(failableConsumerWrapper.wrap(action));
         failableConsumerWrapper.rethrowIfFailed(exceptionSupplier);
     }
 
-    public <OriginalExceptionType extends Throwable> void ifPresentOrElse(final TriableConsumer<OptionalObjectType> action, final TriableRunnable emptyAction) throws OriginalExceptionType {
+    public <OriginalExceptionType extends Throwable> void ifPresentOrElse(final TriableConsumer<OptionalObjectType, OriginalExceptionType> action, final TriableRunnable emptyAction) throws OriginalExceptionType {
         final FailableConsumerWrapper<OptionalObjectType, OriginalExceptionType> failableConsumerWrapper = new FailableConsumerWrapper<>();
         final FailableRunnableWrapper<OriginalExceptionType> failableRunnableWrapper = new FailableRunnableWrapper<>();
         this.optionalT.ifPresentOrElse(
@@ -78,7 +78,7 @@ public class ConvenientOptional<OptionalObjectType> {
         failableRunnableWrapper.rethrowIfFailed(exception -> exception);
     }
 
-    public <OriginalExceptionType extends Throwable, RethrownExceptionType extends Throwable> void ifPresentOrElse(final TriableConsumer<OptionalObjectType> action, final TriableRunnable emptyAction, final Function<OriginalExceptionType, RethrownExceptionType> exceptionSupplier) throws RethrownExceptionType {
+    public <OriginalExceptionType extends Throwable, RethrownExceptionType extends Throwable> void ifPresentOrElse(final TriableConsumer<OptionalObjectType, OriginalExceptionType> action, final TriableRunnable emptyAction, final Function<OriginalExceptionType, RethrownExceptionType> exceptionSupplier) throws RethrownExceptionType {
         final FailableConsumerWrapper<OptionalObjectType, OriginalExceptionType> failableConsumerWrapper = new FailableConsumerWrapper<>();
         final FailableRunnableWrapper<OriginalExceptionType> failableRunnableWrapper = new FailableRunnableWrapper<>();
         this.optionalT.ifPresentOrElse(
