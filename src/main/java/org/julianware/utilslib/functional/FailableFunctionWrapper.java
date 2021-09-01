@@ -8,13 +8,13 @@ import java.util.function.Function;
  * @author Julian Marrel <julian.marrel@smile.eu>
  * @created 24/06/2021
  */
-public class FailableFunctionWrapper<T, U>
-extends FailableActionWrapper
+final class FailableFunctionWrapper<T, U, RethrownExceptionType extends Throwable>
+extends FailableActionWrapper<RethrownExceptionType>
 implements Function<T, U> {
 
     private TriableFunction<T, U> function;
 
-    public FailableFunctionWrapper<T, U> wrap(final TriableFunction<T, U> function) {
+    public FailableFunctionWrapper<T, U, RethrownExceptionType> wrap(final TriableFunction<T, U> function) {
         Objects.requireNonNull(function);
         this.function = function;
         return this;
@@ -25,7 +25,7 @@ implements Function<T, U> {
         try {
             return this.function.giveATry(t);
         } catch (final Throwable thrownException) {
-            this.setThrownException(thrownException);
+            this.setThrownException((RethrownExceptionType) thrownException);
             return null;
         }
     }
