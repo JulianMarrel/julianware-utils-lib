@@ -6,7 +6,7 @@ package org.julianware.utilslib.functional;
  * @created 24/06/2021
  */
 @FunctionalInterface
-public interface TriableConsumer<T> {
+public interface TriableConsumer<ConsumedType, ThrownExceptionType extends Throwable> {
 
-    void eatThis(final T t) throws Throwable;
+    void eatThis(final ConsumedType t) throws ThrownExceptionType;
 }

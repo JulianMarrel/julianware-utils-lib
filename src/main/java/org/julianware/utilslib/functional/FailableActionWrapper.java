@@ -7,18 +7,18 @@ import java.util.function.Function;
  * @author Julian Marrel <julian.marrel@smile.eu>
  * @created 24/06/2021
  */
-public abstract class FailableActionWrapper {
+abstract class FailableActionWrapper<OriginalExceptionType extends Throwable> {
 
-    private Throwable thrownException;
+    private OriginalExceptionType thrownException;
 
-    public <Z extends Throwable> void rethrowIfFailed(final Function<Throwable, Z> exceptionFunction) throws Z {
-        final Optional<Throwable> optionalException = Optional.ofNullable(this.thrownException);
+    public <RethrownExceptionType extends Throwable> void rethrowIfFailed(final Function<OriginalExceptionType, RethrownExceptionType> exceptionFunction) throws RethrownExceptionType {
+        final Optional<OriginalExceptionType> optionalException = Optional.ofNullable(this.thrownException);
         if (optionalException.isPresent()) {
             throw exceptionFunction.apply(optionalException.get());
         }
     }
 
-    protected void setThrownException(final Throwable thrownException) {
+    protected void setThrownException(final OriginalExceptionType thrownException) {
         this.thrownException = thrownException;
     }
 }

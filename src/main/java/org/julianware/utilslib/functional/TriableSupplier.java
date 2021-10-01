@@ -6,7 +6,7 @@ package org.julianware.utilslib.functional;
  * @created 25/06/2021
  */
 @FunctionalInterface
-public interface TriableSupplier<T> {
+public interface TriableSupplier<T, V extends Throwable> {
 
-    T giveMeSome() throws Exception;
+    T giveMeSome() throws V;
 }
