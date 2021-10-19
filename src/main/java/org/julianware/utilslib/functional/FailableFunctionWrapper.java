@@ -8,7 +8,7 @@ import java.util.function.Function;
  * @author Julian Marrel <julian.marrel@smile.eu>
  * @created 24/06/2021
  */
-final class FailableFunctionWrapper<T, U, RethrownExceptionType extends Throwable>
+public final class FailableFunctionWrapper<T, U, RethrownExceptionType extends Throwable>
 extends FailableActionWrapper<RethrownExceptionType>
 implements Function<T, U> {
 

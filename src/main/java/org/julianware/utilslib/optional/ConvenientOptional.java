@@ -1,5 +1,7 @@
-package org.julianware.utilslib.functional;
+package org.julianware.utilslib.optional;
 
+
+import org.julianware.utilslib.functional.*;
 
 import java.util.Optional;
 import java.util.function.Function;

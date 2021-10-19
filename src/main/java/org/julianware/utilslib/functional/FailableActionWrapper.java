@@ -3,11 +3,12 @@ package org.julianware.utilslib.functional;
 import java.util.Optional;
 import java.util.function.Function;
 
+
 /**
  * @author Julian Marrel <julian.marrel@smile.eu>
  * @created 24/06/2021
  */
-abstract class FailableActionWrapper<OriginalExceptionType extends Throwable> {
+public abstract class FailableActionWrapper<OriginalExceptionType extends Throwable> {
 
     private OriginalExceptionType thrownException;
 

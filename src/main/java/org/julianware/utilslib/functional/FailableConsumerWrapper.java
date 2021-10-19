@@ -8,7 +8,7 @@ import java.util.function.Consumer;
  * @author Julian Marrel <julian.marrel@smile.eu>
  * @created 24/06/2021
  */
-final class FailableConsumerWrapper<T, U extends Throwable>
+public final class FailableConsumerWrapper<T, U extends Throwable>
 extends FailableActionWrapper<U>
 implements Consumer<T> {
 

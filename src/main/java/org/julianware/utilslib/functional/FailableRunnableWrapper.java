@@ -7,7 +7,7 @@ import java.util.Objects;
  * @author Julian Marrel <julian.marrel@smile.eu>
  * @created 24/06/2021
  */
-final class FailableRunnableWrapper<U extends Throwable>
+public final class FailableRunnableWrapper<U extends Throwable>
 extends FailableActionWrapper<U>
 implements Runnable {
 

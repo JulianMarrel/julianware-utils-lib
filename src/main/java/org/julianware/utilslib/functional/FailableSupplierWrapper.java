@@ -8,7 +8,7 @@ import java.util.function.Supplier;
  * @author Julian Marrel <julian.marrel@smile.eu>
  * @created 25/06/2021
  */
-final class FailableSupplierWrapper<T, V extends Throwable>
+public final class FailableSupplierWrapper<T, V extends Throwable>
 extends FailableActionWrapper<V>
 implements Supplier<T> {
 
