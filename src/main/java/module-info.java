@@ -9,4 +9,5 @@ module julianware.utils.lib {
     exports org.julianware.utilslib.optional;
     exports org.julianware.utilslib.functional;
     exports org.julianware.utilslib.objects;
+    exports org.julianware.utilslib.text;
 }
