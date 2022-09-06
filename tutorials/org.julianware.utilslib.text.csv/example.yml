@@ -1,0 +1,77 @@
+input:
+  dir: '/home/paumar/temp'
+  file: 'demands.csv'
+  ref:
+    - label: portal
+      fields:
+        - default label
+        - english label
+        - id
+      substitute:
+        target: default label
+        source: id
+    - label: title
+    - label: description
+    - label: subjects
+      fields:
+        - default label
+        - english label
+        - id
+      substitute:
+        target: default label
+        source: id
+    - label: keywords
+      fields:
+        - default label
+        - english label
+        - id
+      substitute:
+        target: default label
+        source: id
+      tokenize: ';'
+    - label: access links
+    - label: BNC category
+      fields:
+        - default label
+        - english label
+        - id
+      substitute:
+        target: default label
+        source: id
+    - label: BNC macro category
+      fields:
+        - default label
+        - english label
+        - id
+      substitute:
+        target: default label
+        source: id
+    - label: centre
+      fields:
+        - default label
+        - english label
+        - id
+      substitute:
+        target: default label
+        source: id
+    - label: portal link
+
+output:
+  dir: '/home/paumar/temp'
+  generate:
+    - format: csv
+      output: demands.csv
+    - format: custom
+      output: itde_demands.sql
+      template: 'INSERT INTO ITDE_DEMANDS (ID, PORTAL, TITLE, DESCRIPTION, SUBJECT, ACCESS_LINK, BNC_CATEGORY, BNC_MACRO_CATEGORY, CENTER, PORTAL_LINK) VALUES (${line_idx}, ''${portal}'', ''${title}'', ''${description}'', ''${subjects}'', ''${access links}'', ''${BNC category:NULL}'', ''${BNC macro category}'', ''${centre}'', ''${portal link}'');'
+      substitute:
+        - target: ''''
+          source: ''''''
+      cleanup:
+        - target: "'NULL'"
+          source: 'NULL'
+    - format: custom
+      output: itde_demands_keywords.sql
+      template: 'INSERT INTO ITDE_DEMANDS_KEYWORDS (DEMAND, D_KEYWORD) VALUES (${line_idx}, ''${keywords}'');'
+      tokenize: ';'
+
