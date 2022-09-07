@@ -12,4 +12,6 @@ module julianware.utils.lib {
     exports org.julianware.utilslib.functional;
     exports org.julianware.utilslib.objects;
     exports org.julianware.utilslib.text.csv;
+    exports org.julianware.utilslib.text.csv.model;
+    exports org.julianware.utilslib.text.csv.service;
 }

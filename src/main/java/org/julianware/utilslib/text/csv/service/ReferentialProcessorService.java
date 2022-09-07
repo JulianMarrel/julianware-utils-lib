@@ -5,6 +5,7 @@ import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
 import java.io.*;
+import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
@@ -13,6 +14,7 @@ import java.text.StringCharacterIterator;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -76,7 +78,7 @@ public class ReferentialProcessorService {
             final List<Map<ReferenceItem, String>> recordsAsMaps = new ArrayList<>();
             for (final List<String> record : records) {
                 final Map<ReferenceItem, String> recordAsMap = new HashMap<>();
-                for (int index = 0; index < references.size(); index++) {
+                for (int index = 0; index < references.size(); index ++) {
                     recordAsMap.put(
                             references.get(index),
                             record.get(index)
@@ -142,7 +144,7 @@ public class ReferentialProcessorService {
             final String template,
             final Generation generation
     ) throws IOException {
-        final List<Generation.Keyword> keywords = readKeywords(template);
+        final List<Generation.Keyword> keywords = listKeywords(template);
         try (
                 final OutputStreamWriter outputStreamWriter =
                         new FileWriter(this.outputDir + File.separator + generation.output)
@@ -200,7 +202,11 @@ public class ReferentialProcessorService {
         }
     }
 
-    public static List<Generation.Keyword> readKeywords(final String template) {
+    public static List<Generation.Keyword> listKeywords(final String template) {
+        if (Optional.ofNullable(template).filter(Predicate.not(String::isBlank)).isEmpty()) {
+            return List.of();
+        }
+
         boolean penReady = false;
         boolean penDown = false;
         StringBuilder stringBuilder = null;
@@ -295,6 +301,19 @@ public class ReferentialProcessorService {
                 )
                 .orElse(List.of(finalReplaced));
         return meh;
+    }
+
+    public static String substituteKeywords(
+            final String stringTemplate,
+            final Object bean
+    ) throws ReflectiveOperationException {
+        String string = stringTemplate;
+        for (final Generation.Keyword keyword : listKeywords(stringTemplate)) {
+            final Method getter =
+                    bean.getClass().getMethod("get" + keyword.getLabel().substring(0, 1).toUpperCase() + keyword.getLabel().substring(1));
+            string = string.replace("${" + keyword.getLabel() + "}", getter.invoke(bean).toString());
+        }
+        return string;
     }
 
     public final void exportAsCSV(
