@@ -3,9 +3,9 @@
  * @created 15/10/2021
  */
 module julianware.utils.lib {
-    requires slf4j.api;
     requires org.jetbrains.annotations;
     requires org.yaml.snakeyaml;
+    requires org.slf4j;
 
     exports org.julianware.utilslib.string;
     exports org.julianware.utilslib.optional;
