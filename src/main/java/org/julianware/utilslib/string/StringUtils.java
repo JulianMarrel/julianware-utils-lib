@@ -11,4 +11,22 @@ public class StringUtils {
         String ret = camelString.replaceAll("([A-Z]+)([A-Z][a-z])", "$1_$2").replaceAll("([a-z])([A-Z])", "$1_$2");
         return ret.toLowerCase();
     }
+
+    public static String snakeToCamel(final String snakeString) {
+        String camelString = snakeString.substring(0, 1).toUpperCase() + snakeString.substring(1);
+
+        while (camelString.contains("_")) {
+            camelString = camelString.replaceFirst(
+                    "_[a-z]",
+                    String.valueOf(
+                            Character.toUpperCase(
+                                    camelString.charAt(
+                                            camelString.indexOf("_") + 1
+                                    )
+                            )
+                    )
+            );
+        }
+        return camelString;
+    }
 }
