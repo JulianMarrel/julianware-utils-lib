@@ -6,14 +6,15 @@
 
     <groupId>org.julianware</groupId>
     <artifactId>julianware-utils-lib</artifactId>
-    <version>0.3.1-SNAPSHOT</version>
+    <version>0.4.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>17</java.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <java.version>18</java.version>
+        <maven.version>3.8.1</maven.version>
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
         <snakeyaml.version>1.30</snakeyaml.version>
     </properties>
 
@@ -64,21 +65,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>${maven.version}</version>
                 <configuration>
-                    <source>16</source>
-                    <target>16</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>nexus.internal.snapshot</id>
-            <url>http://nexus.vitry.intranet/content/repositories/InternalSmileSnapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>
